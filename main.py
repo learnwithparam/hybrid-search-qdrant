@@ -1,0 +1,18 @@
+from dotenv import load_dotenv
+load_dotenv()
+
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from router import router
+
+app = FastAPI(
+    title="Hybrid Document Search with Qdrant and Sentence Transformers",
+    description="Parse PDFs, store dense+sparse embeddings in Qdrant, and rerank with cross-encoders",
+    version="1.0.0",
+)
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
+app.include_router(router)
+
+@app.get("/")
+async def root():
+    return {"service": "hybrid-search-qdrant", "docs": "/docs"}
