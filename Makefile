@@ -50,7 +50,12 @@ install: ## Install dependencies
 # Development
 # ============================================================================
 
-dev: setup run ## Setup and run (one command to start!)
+dev: setup up-qdrant run ## Setup, start Qdrant, and run API
+
+up-qdrant: ## Start Qdrant via Docker
+	@echo "$(BLUE)Starting Qdrant...$(NC)"
+	@docker compose up -d qdrant
+	@echo "$(GREEN)✓ Qdrant running at http://localhost:6333$(NC)"
 
 run: ## Start FastAPI server
 	@echo "$(BLUE)Starting FastAPI server...$(NC)"
